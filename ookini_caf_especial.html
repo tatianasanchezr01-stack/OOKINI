@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOKINI | Café Especial & Kyoto Drip</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond / Playfair Display + Plus Jakarta Sans / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        mint: {
+                            50: '#f2fbf8',
+                            100: '#d5f3e8',
+                            200: '#abe6d2',
+                            300: '#78d2b7',
+                            400: '#49b89a',
+                            500: '#2f9c81',
+                            600: '#237d68',
+                            700: '#1f6455',
+                            800: '#1c5045',
+                            900: '#1a423a',
+                        },
+                        roast: {
+                            50: '#faf8f6',
+                            100: '#f3efe9',
+                            200: '#e5ddd2',
+                            700: '#59463b',
+                            800: '#3c2e26',
+                            900: '#241b16',
+                            950: '#17110e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-roast-50 text-roast-900 font-sans antialiased selection:bg-mint-500 selection:text-white">
+
+    <!-- Navegación Principal -->
+    <header class="fixed w-full top-0 z-50 bg-roast-950/95 backdrop-blur-md text-roast-50 border-b border-mint-800/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logotipo SVG Original OOKINI -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 rounded-2xl bg-mint-500/15 border border-mint-400/50 flex items-center justify-center text-mint-300 group-hover:bg-mint-500 group-hover:text-roast-950 transition-all duration-300">
+                        <!-- Icono SVG minimalista: Gota de Kyoto Drip + hoja -->
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2.5C12 2.5 6 9.5 6 14a6 6 0 0 0 12 0c0-4.5-6-11.5-6-11.5Z"/>
+                            <path d="M12 14v5"/>
+                            <path d="M9.5 16.5c1.5 0 2.5-1 2.5-2.5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-serif text-2xl font-bold tracking-wider text-white leading-none">OOKINI</span>
+                            <span class="text-xs text-mint-300 font-light">おおきに</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-[0.25em] text-mint-400 block mt-1">Café Especial</span>
+                    </div>
+                </a>
+
+                <!-- Enlaces Escritorio -->
+                <nav class="hidden md:flex space-x-8 items-center text-sm font-medium">
+                    <a href="#historia" class="text-roast-200 hover:text-mint-300 transition-colors">Origen & Kioto</a>
+                    <a href="#carta" class="text-roast-200 hover:text-mint-300 transition-colors">Métodos & Precios</a>
+                    <a href="#reservas" class="text-roast-200 hover:text-mint-300 transition-colors">Reservar Taza</a>
+                    <a href="#cata" class="text-roast-200 hover:text-mint-300 transition-colors">Cata Semanal</a>
+                </nav>
+
+                <!-- Indicador de Horario y Menú Móvil -->
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-mint-900/60 border border-mint-500/30 text-xs text-mint-200">
+                        <span class="w-2 h-2 rounded-full bg-mint-400 animate-pulse"></span>
+                        <span>8:00 a. m. – 8:00 p. m.</span>
+                    </div>
+                    
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-roast-100 hover:bg-roast-800 focus:outline-none" aria-label="Abrir menú">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-roast-950 border-t border-roast-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="#historia" onclick="toggleMobileMenu()" class="block py-3 px-4 rounded-xl text-base font-medium text-roast-100 hover:bg-roast-900">Origen & Kioto</a>
+            <a href="#carta" onclick="toggleMobileMenu()" class="block py-3 px-4 rounded-xl text-base font-medium text-roast-100 hover:bg-roast-900">Métodos & Precios</a>
+            <a href="#reservas" onclick="toggleMobileMenu()" class="block py-3 px-4 rounded-xl text-base font-medium text-roast-100 hover:bg-roast-900">Reservar Preparación Especial</a>
+            <a href="#cata" onclick="toggleMobileMenu()" class="block py-3 px-4 rounded-xl text-base font-medium text-roast-100 hover:bg-roast-900">Cata Semanal (8 cupos)</a>
+        </div>
+    </header>
+
+    <!-- Sección Hero -->
+    <section class="relative min-h-[92vh] flex items-center justify-center pt-20 overflow-hidden bg-roast-950">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1920&q=80" 
+                 onerror="this.src='https://placehold.co/1920x1080/17110e/78d2b7?text=OOKINI+Cafe+Especial'"
+                 alt="Extracción lenta de café" 
+                 class="w-full h-full object-cover opacity-35">
+            <div class="absolute inset-0 bg-gradient-to-t from-roast-950 via-roast-950/75 to-roast-950/85"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-mint-500/15 border border-mint-400/40 text-mint-300 text-xs sm:text-sm font-medium tracking-widest uppercase mb-6">
+                <span>Kansai • Kioto • Gratitud en cada gota</span>
+            </div>
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                El tiempo se detiene gota a gota en <span class="italic text-mint-300 font-normal">Ookini</span>
+            </h1>
+            <p class="text-roast-200 text-base sm:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Inspirados en la hospitalidad de Kioto, preparamos extracciones lentas de precisión limitada a <strong class="text-white font-semibold">50 tazas diarias</strong>, junto a nuestra barra abierta de prensa francesa.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#reservas" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-mint-400 hover:bg-mint-300 text-roast-950 font-semibold transition-all shadow-lg shadow-mint-500/20 flex items-center justify-center gap-2">
+                    <span>Reservar Preparación Especial</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+                <a href="#carta" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/20 text-white font-medium transition-all">
+                    Ver Carta y Reglas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Historia & Concepto -->
+    <section id="historia" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-6">
+                <span class="text-mint-600 font-semibold text-xs uppercase tracking-[0.2em] block mb-3">¿Por qué Ookini?</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-roast-900 mb-6 leading-tight">
+                    "Gracias" en el corazón de Kansai.
+                </h2>
+                <p class="text-roast-700 text-base sm:text-lg leading-relaxed mb-5">
+                    En el dialecto tradicional de la región japonesa de Kansai —hogar de la histórica ciudad de <strong>Kioto</strong>—, <em>"Ookini"</em> (おおきに) significa <strong>gracias</strong>. Es una palabra cálida que celebra el encuentro, la paciencia y el respeto por el oficio artesanal.
+                </p>
+                <p class="text-roast-700 text-base sm:text-lg leading-relaxed mb-8">
+                    Kioto vio nacer el emblemático método <strong>Kyoto Drip</strong>: una extracción en frío gota a gota que toma horas para revelar la dulzura más pura del grano. Por eso, en Ookini honramos el tiempo: limitamos nuestras preparaciones especiales a <strong>50 tazas al día</strong> para garantizar perfección absoluta.
+                </p>
+
+                <!-- Resumen visual de reglas -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="p-4 rounded-2xl bg-mint-50 border border-mint-200 text-center">
+                        <span class="block font-serif text-2xl font-bold text-mint-700">50</span>
+                        <span class="text-xs text-roast-700">Tazas esp. / día</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-mint-50 border border-mint-200 text-center">
+                        <span class="block font-serif text-2xl font-bold text-mint-700">Máx 2</span>
+                        <span class="text-xs text-roast-700">Tazas / persona</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-mint-50 border border-mint-200 text-center">
+                        <span class="block font-serif text-2xl font-bold text-mint-700">8</span>
+                        <span class="text-xs text-roast-700">Cupos cata sem.</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-mint-50 border border-mint-200 text-center">
+                        <span class="block font-serif text-2xl font-bold text-mint-700">12h</span>
+                        <span class="text-xs text-roast-700">8 a.m. – 8 p.m.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-roast-200">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=80" 
+                         onerror="this.src='https://placehold.co/1000x750/237d68/f2fbf8?text=Kyoto+Drip+OOKINI'"
+                         alt="Preparación artesanal de café en Ookini" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-4 left-4 right-4 bg-roast-950/90 backdrop-blur-md text-white p-5 rounded-2xl border border-mint-500/30 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-mint-300 uppercase tracking-wider font-semibold">Horario Continuo</p>
+                            <p class="font-serif text-lg">Todos los días • 8:00 a. m. a 8:00 p. m.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-mint-500/20 text-mint-300 flex items-center justify-center">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Carta de Métodos y Modalidades de Atención -->
+    <section id="carta" class="py-20 bg-mint-50/70 border-y border-mint-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-mint-700 font-semibold text-xs uppercase tracking-[0.2em] block mb-2">Dos formas de vivir Ookini</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-roast-900 mb-4">Nuestra Carta de Extracciones</h2>
+                <p class="text-roast-700">Precios expresados en dólares estadounidenses (USD). Elige entre una visita espontánea o reserva una extracción de alta precisión.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Modalidad 1: Walk-in Prensa Francesa -->
+                <div class="bg-white rounded-3xl p-8 shadow-md border border-roast-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3.5 py-1 rounded-full text-xs font-semibold bg-roast-100 text-roast-800">
+                                Walk-in • Sin Reserva
+                            </span>
+                            <i class="fa-solid fa-mug-hot text-mint-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-roast-900 mb-2">Prensa Francesa</h3>
+                        <p class="text-sm text-roast-600 mb-6 leading-relaxed">
+                            Para quienes desean disfrutar un excelente café de especialidad al instante, sin reserva previa y sin límite de tazas por persona.
+                        </p>
+                        
+                        <div class="p-4 rounded-2xl bg-roast-50 border border-roast-200/70 mb-6">
+                            <div class="flex justify-between items-baseline">
+                                <span class="font-semibold text-roast-900">Taza de Prensa Francesa</span>
+                                <span class="font-serif text-3xl font-bold text-mint-700">$3 <span class="text-xs font-sans font-normal text-roast-500">USD</span></span>
+                            </div>
+                            <ul class="mt-3 space-y-1.5 text-xs text-roast-600">
+                                <li><i class="fa-solid fa-check text-mint-600 mr-1.5"></i> Sin límite por persona</li>
+                                <li><i class="fa-solid fa-check text-mint-600 mr-1.5"></i> Disponible todo el día (8 a. m. – 8 p. m.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#ubicacion" class="w-full py-3.5 rounded-2xl bg-roast-900 hover:bg-roast-800 text-white text-center text-sm font-semibold transition-colors">
+                        Venir Directo al Café
+                    </a>
+                </div>
+
+                <!-- Modalidad 2: Preparaciones Especiales con Reserva -->
+                <div class="bg-roast-900 text-white rounded-3xl p-8 shadow-xl border-2 border-mint-400 flex flex-col justify-between relative">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3.5 py-1 rounded-full text-xs font-semibold bg-mint-400 text-roast-950">
+                                Con Reserva • Cupo Limitado
+                            </span>
+                            <span id="badge-tazas-header" class="text-xs text-mint-300 font-medium">50 tazas/día</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-white mb-2">Preparaciones Especiales</h3>
+                        <p class="text-sm text-roast-200 mb-6 leading-relaxed">
+                            Métodos lentos y complejos calibrados bajo reserva. Máximo <strong>50 tazas diarias</strong> en total y hasta <strong>2 tazas por persona</strong>.
+                        </p>
+
+                        <div class="space-y-3 mb-6">
+                            <div class="p-3.5 rounded-2xl bg-roast-800/80 border border-roast-700 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-white">V60</h4>
+                                    <p class="text-xs text-roast-300">Filtrado limpio y brillante</p>
+                                </div>
+                                <span class="font-serif text-2xl font-bold text-mint-300">$5</span>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-roast-800/80 border border-mint-500/40 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-white flex items-center gap-2">
+                                        Kyoto Drip
+                                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-mint-500/20 text-mint-300">Insignia</span>
+                                    </h4>
+                                    <p class="text-xs text-roast-300">Goteo en frío originario de Kioto</p>
+                                </div>
+                                <span class="font-serif text-2xl font-bold text-mint-300">$7</span>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-roast-800/80 border border-roast-700 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold text-white">Siphon</h4>
+                                    <p class="text-xs text-roast-300">Extracción al vacío de alta pureza</p>
+                                </div>
+                                <span class="font-serif text-2xl font-bold text-mint-300">$8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#reservas" class="w-full py-3.5 rounded-2xl bg-mint-400 hover:bg-mint-300 text-roast-950 text-center text-sm font-bold transition-colors">
+                        Reservar Ahora
+                    </a>
+                </div>
+
+                <!-- Modalidad 3: Cata Semanal -->
+                <div class="bg-white rounded-3xl p-8 shadow-md border border-roast-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3.5 py-1 rounded-full text-xs font-semibold bg-mint-100 text-mint-800">
+                                Evento Semanal • 8 Cupos
+                            </span>
+                            <i class="fa-solid fa-wine-glass text-mint-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-roast-900 mb-2">Cata Semanal Guiada</h3>
+                        <p class="text-sm text-roast-600 mb-6 leading-relaxed">
+                            Una sesión íntima a la semana para explorar perfiles sensoriales, orígenes y curvas de tueste junto a nuestros baristas.
+                        </p>
+
+                        <div class="p-4 rounded-2xl bg-mint-50 border border-mint-200 mb-6">
+                            <div class="flex justify-between items-baseline">
+                                <span class="font-semibold text-roast-900">Entrada por persona</span>
+                                <span class="font-serif text-3xl font-bold text-mint-700">$25 <span class="text-xs font-sans font-normal text-roast-500">USD</span></span>
+                            </div>
+                            <ul class="mt-3 space-y-1.5 text-xs text-roast-700">
+                                <li><i class="fa-solid fa-check text-mint-600 mr-1.5"></i> Incluye múltiples degustaciones</li>
+                                <li><i class="fa-solid fa-check text-mint-600 mr-1.5"></i> Solo 8 cupos por semana</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <a href="#cata" class="w-full py-3.5 rounded-2xl bg-mint-600 hover:bg-mint-700 text-white text-center text-sm font-semibold transition-colors">
+                        Apartar Cupo de Cata
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Interactiva de Reservas (Preparaciones Especiales + Cata Semanal) -->
+    <section id="reservas" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <!-- Columna Izquierda: Reserva de Preparaciones Especiales -->
+            <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-roast-200">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-roast-100 pb-6 mb-6">
+                    <div>
+                        <span class="text-mint-600 font-semibold text-xs uppercase tracking-widest block mb-1">Cupo Diario Controlado</span>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-roast-900">Reservar Preparación Especial</h2>
+                    </div>
+                    <!-- Medidor en tiempo real de las 50 tazas diarias -->
+                    <div class="px-4 py-2.5 rounded-2xl bg-mint-50 border border-mint-300 text-right">
+                        <span class="block text-[11px] uppercase tracking-wider text-mint-800 font-semibold">Disponibles hoy</span>
+                        <span id="daily-cups-remaining" class="font-serif text-2xl font-bold text-mint-700">50 / 50</span>
+                        <span class="text-xs text-roast-600">tazas</span>
+                    </div>
+                </div>
+
+                <!-- Barra de progreso de disponibilidad diaria -->
+                <div class="mb-6">
+                    <div class="w-full bg-roast-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="daily-progress-bar" class="bg-mint-500 h-2.5 rounded-full transition-all duration-500" style="width: 100%"></div>
+                    </div>
+                    <p class="text-xs text-roast-500 mt-2">
+                        <i class="fa-solid fa-circle-info text-mint-600 mr-1"></i>
+                        Regla de Ookini: Máximo <strong>2 tazas por persona</strong> al día entre V60, Kyoto Drip y Siphon.
+                    </p>
+                </div>
+
+                <form id="special-brew-form" onsubmit="handleSpecialBrewReservation(event)" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-roast-700 mb-1.5">Tu Nombre</label>
+                            <input type="text" id="brew-customer-name" required placeholder="Ej. Kenji Sato" class="w-full px-4 py-3 rounded-xl bg-roast-50 border border-roast-200 text-roast-900 focus:outline-none focus:border-mint-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-roast-700 mb-1.5">Hora de visita (8 a.m. - 8 p.m.)</label>
+                            <input type="time" id="brew-time" min="08:00" max="20:00" value="10:30" required class="w-full px-4 py-3 rounded-xl bg-roast-50 border border-roast-200 text-roast-900 focus:outline-none focus:border-mint-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-roast-700 mb-1.5">Método Especial</label>
+                            <select id="brew-method" onchange="updateBrewSummary()" class="w-full px-4 py-3 rounded-xl bg-roast-50 border border-roast-200 text-roast-900 focus:outline-none focus:border-mint-500">
+                                <option value="V60" data-price="5">V60 — $5 USD</option>
+                                <option value="Kyoto drip" data-price="7" selected>Kyoto drip — $7 USD</option>
+                                <option value="Siphon" data-price="8">Siphon — $8 USD</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-roast-700 mb-1.5">Cantidad (Máx. 2 por persona)</label>
+                            <select id="brew-qty" onchange="updateBrewSummary()" class="w-full px-4 py-3 rounded-xl bg-roast-50 border border-roast-200 text-roast-900 focus:outline-none focus:border-mint-500">
+                                <option value="1">1 taza</option>
+                                <option value="2">2 tazas (Límite por persona)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Resumen de costo -->
+                    <div class="p-4 rounded-2xl bg-mint-50/80 border border-mint-200 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-roast-600 block">Total estimado de tu reserva</span>
+                            <span id="brew-summary-text" class="text-sm font-medium text-roast-900">1x Kyoto drip ($7 USD)</span>
+                        </div>
+                        <span id="brew-total-price" class="font-serif text-3xl font-bold text-mint-700">$7 USD</span>
+                    </div>
+
+                    <button type="submit" id="btn-submit-brew" class="w-full py-4 rounded-2xl bg-mint-500 hover:bg-mint-600 text-white font-semibold transition-all shadow-md">
+                        Confirmar Reserva de Taza
+                    </button>
+                </form>
+
+                <!-- Lista de reservas realizadas en la sesión -->
+                <div id="recent-brew-reservations" class="mt-6 pt-6 border-t border-roast-100 hidden">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-roast-500 mb-3">Tus reservas confirmadas hoy</h4>
+                    <div id="brew-reservations-list" class="space-y-2"></div>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Reserva de Cata Semanal (8 Cupos) -->
+            <div id="cata" class="lg:col-span-5 bg-roast-950 text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-mint-800/50 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-roast-800 pb-6 mb-6">
+                        <div>
+                            <span class="text-mint-400 font-semibold text-xs uppercase tracking-widest block mb-1">Experiencia Sensorial</span>
+                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white">Cata Semanal</h2>
+                        </div>
+                        <div class="px-3.5 py-2 rounded-2xl bg-mint-500/15 border border-mint-400/40 text-right">
+                            <span class="block text-[10px] uppercase tracking-wider text-mint-300">Cupos libres</span>
+                            <span id="tasting-spots-remaining" class="font-serif text-xl font-bold text-mint-300">8 / 8</span>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-roast-200 leading-relaxed mb-6">
+                        Acompáñanos una vez por semana en una sesión guiada donde degustarás múltiples lotes de especialidad y aprenderás a identificar notas de origen.
+                    </p>
+
+                    <div class="p-4 rounded-2xl bg-roast-900 border border-roast-800 mb-6 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-roast-400 block">Valor por asistente</span>
+                            <span class="text-sm text-roast-100">Incluye varias degustaciones</span>
+                        </div>
+                        <span class="font-serif text-3xl font-bold text-mint-300">$25 <span class="text-xs font-sans font-normal text-roast-400">USD</span></span>
+                    </div>
+
+                    <form id="tasting-form" onsubmit="handleTastingReservation(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-roast-300 mb-1.5">Nombre del Participante</label>
+                            <input type="text" id="tasting-name" required placeholder="Ej. Sofía Morales" class="w-full px-4 py-3 rounded-xl bg-roast-900 border border-roast-700 text-white placeholder-roast-500 focus:outline-none focus:border-mint-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-roast-300 mb-1.5">Cupos a reservar</label>
+                            <select id="tasting-qty" class="w-full px-4 py-3 rounded-xl bg-roast-900 border border-roast-700 text-white focus:outline-none focus:border-mint-400">
+                                <option value="1">1 persona — $25 USD</option>
+                                <option value="2">2 personas — $50 USD</option>
+                                <option value="3">3 personas — $75 USD</option>
+                                <option value="4">4 personas — $100 USD</option>
+                            </select>
+                        </div>
+                        <button type="submit" id="btn-submit-tasting" class="w-full py-4 rounded-2xl bg-mint-400 hover:bg-mint-300 text-roast-950 font-bold transition-colors mt-2">
+                            Reservar Cupo en Cata
+                        </button>
+                    </form>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-roast-800/80 text-xs text-roast-400 flex items-center justify-between">
+                    <span><i class="fa-solid fa-users text-mint-400 mr-1.5"></i> Capacidad máxima: 8 personas</span>
+                    <span>Sábados • 4:00 p. m.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer y Horarios -->
+    <footer id="ubicacion" class="bg-roast-950 text-roast-200 border-t border-roast-800 py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-10 border-b border-roast-800">
+                <div>
+                    <div class="flex items-center gap-2.5 mb-2">
+                        <span class="font-serif text-2xl font-bold text-white tracking-wider">OOKINI</span>
+                        <span class="text-xs px-2.5 py-0.5 rounded-full bg-mint-500/20 text-mint-300">おおきに • Gracias</span>
+                    </div>
+                    <p class="text-sm text-roast-400 max-w-md">
+                        Café de especialidad inspirado en la tradición de Kioto. Extracciones lentas, hospitalidad genuina y respeto por cada grano.
+                    </p>
+                </div>
+
+                <div class="bg-roast-900/90 border border-mint-500/30 px-6 py-4 rounded-2xl">
+                    <p class="text-xs uppercase tracking-widest text-mint-300 font-semibold mb-1">Horario de Atención</p>
+                    <p class="text-white font-serif text-lg">Todos los días: 8:00 a. m. – 8:00 p. m.</p>
+                    <p class="text-xs text-roast-400 mt-0.5">Prensa francesa walk-in disponible durante toda la jornada.</p>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-roast-400">
+                <p>© 2026 OOKINI Café Especial. Todos los precios en USD.</p>
+                <div class="flex space-x-5 text-base text-mint-300">
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notificación Toast (Sin alert) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-roast-900 text-white px-6 py-4 rounded-2xl shadow-2xl border border-mint-400 flex items-center gap-3 max-w-sm">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-mint-400 text-xl"></i>
+        <p id="toast-message" class="text-sm font-medium"></p>
+    </div>
+
+    <script>
+        // Estado del negocio según reglas de Ookini
+        const MAX_DAILY_SPECIAL_CUPS = 50;
+        const MAX_CUPS_PER_PERSON = 2;
+        const MAX_TASTING_SPOTS = 8;
+
+        let remainingSpecialCups = MAX_DAILY_SPECIAL_CUPS;
+        let remainingTastingSpots = MAX_TASTING_SPOTS;
+        const personDailyReservations = {}; // Registro de tazas por nombre de persona hoy
+        const confirmedBrewList = [];
+
+        // Actualizar resumen dinámico al seleccionar método o cantidad
+        function updateBrewSummary() {
+            const methodSelect = document.getElementById('brew-method');
+            const qtySelect = document.getElementById('brew-qty');
+            const selectedOption = methodSelect.options[methodSelect.selectedIndex];
+            
+            const methodName = selectedOption.value;
+            const unitPrice = parseInt(selectedOption.dataset.price, 10);
+            const qty = parseInt(qtySelect.value, 10);
+            const total = unitPrice * qty;
+
+            document.getElementById('brew-summary-text').textContent = `${qty}x ${methodName} ($${unitPrice} USD c/u)`;
+            document.getElementById('brew-total-price').textContent = `$${total} USD`;
+        }
+
+        // Manejar reserva de preparaciones especiales (Máx 50/día, Máx 2/persona)
+        function handleSpecialBrewReservation(event) {
+            event.preventDefault();
+
+            const nameInput = document.getElementById('brew-customer-name');
+            const timeInput = document.getElementById('brew-time');
+            const methodSelect = document.getElementById('brew-method');
+            const qtySelect = document.getElementById('brew-qty');
+
+            const rawName = nameInput.value.trim();
+            const normalizedName = rawName.toLowerCase();
+            const qtyRequested = parseInt(qtySelect.value, 10);
+            const methodName = methodSelect.value;
+            const unitPrice = parseInt(methodSelect.options[methodSelect.selectedIndex].dataset.price, 10);
+
+            // Regla 1: Verificar límite diario global de 50 tazas
+            if (qtyRequested > remainingSpecialCups) {
+                showToast(`Lo sentimos, solo quedan ${remainingSpecialCups} tazas especiales disponibles hoy.`, true);
+                return;
+            }
+
+            // Regla 2: Verificar límite de 2 tazas por persona al día
+            const alreadyReservedByPerson = personDailyReservations[normalizedName] || 0;
+            if (alreadyReservedByPerson + qtyRequested > MAX_CUPS_PER_PERSON) {
+                const canStillReserve = MAX_CUPS_PER_PERSON - alreadyReservedByPerson;
+                const msg = canStillReserve > 0 
+                    ? `${rawName} ya reservó ${alreadyReservedByPerson} taza(s) hoy. Solo puede reservar ${canStillReserve} más (máx. 2 por persona).`
+                    : `${rawName} ya alcanzó el límite máximo de 2 tazas especiales por día.`;
+                showToast(msg, true);
+                return;
+            }
+
+            // Actualizar contadores
+            remainingSpecialCups -= qtyRequested;
+            personDailyReservations[normalizedName] = alreadyReservedByPerson + qtyRequested;
+
+            // Actualizar UI de disponibilidad
+            document.getElementById('daily-cups-remaining').textContent = `${remainingSpecialCups} / ${MAX_DAILY_SPECIAL_CUPS}`;
+            document.getElementById('badge-tazas-header').textContent = `${remainingSpecialCups} tazas disp.`;
+            const percentage = (remainingSpecialCups / MAX_DAILY_SPECIAL_CUPS) * 100;
+            document.getElementById('daily-progress-bar').style.width = `${percentage}%`;
+
+            if (remainingSpecialCups === 0) {
+                const btn = document.getElementById('btn-submit-brew');
+                btn.disabled = true;
+                btn.textContent = 'Cupo diario de 50 tazas agotado';
+                btn.classList.replace('bg-mint-500', 'bg-roast-400');
+            }
+
+            // Guardar y mostrar en la lista de reservas confirmadas
+            confirmedBrewList.unshift({
+                name: rawName,
+                method: methodName,
+                qty: qtyRequested,
+                time: timeInput.value,
+                total: unitPrice * qtyRequested
+            });
+            renderConfirmedBrews();
+
+            showToast(`¡Ookini, ${rawName}! Reserva confirmada: ${qtyRequested}x ${methodName}.`, false);
+            nameInput.value = '';
+        }
+
+        function renderConfirmedBrews() {
+            const container = document.getElementById('recent-brew-reservations');
+            const list = document.getElementById('brew-reservations-list');
+            container.classList.remove('hidden');
+
+            list.innerHTML = confirmedBrewList.map(item => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-mint-50 border border-mint-200 text-xs">
+                    <div>
+                        <strong class="text-roast-900">${item.name}</strong> • ${item.qty}x ${item.method} (${item.time})
+                    </div>
+                    <span class="font-bold text-mint-700">$${item.total} USD</span>
+                </div>
+            `).join('');
+        }
+
+        // Manejar reserva de Cata Semanal (Máx 8 cupos)
+        function handleTastingReservation(event) {
+            event.preventDefault();
+
+            const nameInput = document.getElementById('tasting-name');
+            const qtySelect = document.getElementById('tasting-qty');
+            const name = nameInput.value.trim();
+            const spotsRequested = parseInt(qtySelect.value, 10);
+
+            if (spotsRequested > remainingTastingSpots) {
+                showToast(`Solo quedan ${remainingTastingSpots} cupo(s) disponibles para la cata semanal.`, true);
+                return;
+            }
+
+            remainingTastingSpots -= spotsRequested;
+            document.getElementById('tasting-spots-remaining').textContent = `${remainingTastingSpots} / ${MAX_TASTING_SPOTS}`;
+
+            if (remainingTastingSpots === 0) {
+                const btn = document.getElementById('btn-submit-tasting');
+                btn.disabled = true;
+                btn.textContent = 'Cata Semanal Llena (8/8)';
+                btn.classList.replace('bg-mint-400', 'bg-roast-700');
+                btn.classList.replace('text-roast-950', 'text-roast-300');
+            }
+
+            const total = spotsRequested * 25;
+            showToast(`¡Cupo reservado para ${name}! (${spotsRequested} pers. • $${total} USD).`, false);
+            nameInput.value = '';
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        let toastTimeout;
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.textContent = message;
+            if (isError) {
+                toast.classList.replace('border-mint-400', 'border-amber-400');
+                iconEl.className = 'fa-solid fa-circle-exclamation text-amber-400 text-xl';
+            } else {
+                toast.classList.replace('border-amber-400', 'border-mint-400');
+                iconEl.className = 'fa-solid fa-circle-check text-mint-400 text-xl';
+            }
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
